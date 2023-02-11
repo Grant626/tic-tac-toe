@@ -54,8 +54,8 @@ function Player(name, marker) {
     }
 }
 
-const player1 = new Player('paul', 'O');
-const player2 = new Player('kevin', 'X');
+const player = new Player('grant', 'O');
+const computer = new Player('computer', 'X');
 
 
 

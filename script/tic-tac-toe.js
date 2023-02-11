@@ -1,7 +1,7 @@
 const statusDisplay = document.querySelector('.status');
 
 let gameActive = true;
-let currentPlayer = "X";
+let currentPlayer = handleStartingMove();
 let gameState = ["", "", "", "", "", "", "", "", ""];
 
 const winningMessage = () => `Player ${currentPlayer} has won!`;
@@ -21,14 +21,24 @@ const winningConditions = [
     [2, 4, 6]
 ];
 
-function handleCellPlayed(clickedCell, clickedCellIndex) {
+function handleCellPlayed(clickedCellIndex, clickedCell) {
     gameState[clickedCellIndex] = currentPlayer;
-    clickedCell.innerHTML = currentPlayer;
+    if(currentPlayer === "X"){
+        clickedCell.innerHTML = currentPlayer;    
+    }else{
+        $(`.cell[data-cell-index="${clickedCellIndex}"]`).html(currentPlayer);
+        console.log(currentPlayer+ " played at "+ clickedCellIndex);
+    }
+    
 }
 
 function handlePlayerChange() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.innerHTML = currentPlayerTurn();
+    if(currentPlayer === "O"){
+        setTimeout(5000);
+        handleCellClick();
+    }
 }
 
 function handleResultValidation() {
@@ -66,24 +76,49 @@ function handleResultValidation() {
 }
 
 function handleCellClick(clickedCellEvent) {
-    const clickedCell = clickedCellEvent.target;
-    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
-
-    if (gameState[clickedCellIndex] !== "" || !gameActive) {
-        return;
+    if(currentPlayer === "X"){
+        clickedCell = clickedCellEvent.target;
+        clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+        if (gameState[clickedCellIndex] !== "" || !gameActive) {
+            return;
+        }
+        handleCellPlayed(clickedCellIndex, clickedCell);
+    }else{
+        clickedCellIndex = handleAIMove();
+        if (gameState[clickedCellIndex] !== "" || !gameActive) {
+            return;
+        }
+        handleCellPlayed(clickedCellIndex);
     }
 
-    handleCellPlayed(clickedCell, clickedCellIndex);
     handleResultValidation();
 }
 
 function handleRestartGame() {
     gameActive = true;
-    currentPlayer = "X";
+    currentPlayer = handleStartingMove();
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.style.color = "rgb(65, 65, 65)";
     statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+}
+
+function handleAIMove () {
+    move = Math.floor(Math.random() * 9);
+    if(gameState[move] != ""){
+        handleAIMove();
+    }else{
+        return move;
+    }
+}
+
+function handleStartingMove(){
+    start = Math.floor(Math.random() * 2);
+    if(start == 0){
+        return "X";
+    }else{
+        return "O";
+    }
 }
 
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
