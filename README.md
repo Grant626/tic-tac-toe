@@ -1,6 +1,6 @@
 <div align="center">
-  
-  ![](hw3gif.mp4)
+ 
+  https://user-images.githubusercontent.com/61981529/218285324-4a55aa68-db86-424c-9283-9c44d08e4f2b.mp4
   <h3>Tic-Tac-Toe</h3>
     
 </div>
