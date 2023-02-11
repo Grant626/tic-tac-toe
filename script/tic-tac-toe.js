@@ -83,15 +83,22 @@ function handleResultValidation() {
         if(currentPlayer === "X"){
             xWins++;
             statusDisplay.style.color = "rgb(50,200,50)";
+            statusDisplay.setAttribute("role", "alert");
+            statusDisplay.classList.add("alert");
+            statusDisplay.classList.add("alert-success");
+            statusDisplay.innerHTML = winningMessage();
         }else{
             oWins++;
             statusDisplay.style.color = "rgb(251,100,204)";
+            statusDisplay.setAttribute("role", "alert");
+            statusDisplay.classList.add("alert");
+            statusDisplay.classList.add("alert-danger");
+            statusDisplay.innerHTML = winningMessage();
         }
         for(let i = 0; i <= 2; i++){
             $(`.cell[data-cell-index="${winCondition[i]}"]`).addClass("wonTile");  
             console.log(winCondition[i]);
         }
-        statusDisplay.innerHTML = winningMessage();
         scoreDisplay.innerHTML = scoreboard();
         gameActive = false;
         return;
@@ -134,6 +141,9 @@ function handleRestartGame() {
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.style.color = "rgb(170, 100, 200)";
     statusDisplay.innerHTML = currentPlayerTurn();
+    statusDisplay.classList.remove("alert");
+    statusDisplay.classList.remove("alert-success");
+    statusDisplay.classList.remove("alert-danger");
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
     document.querySelectorAll('.cell').forEach(cell => cell.classList.remove("wonTile"));
     document.querySelectorAll('.cell').forEach(cell => cell.classList.remove("xTile"));
