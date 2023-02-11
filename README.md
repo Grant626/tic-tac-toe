@@ -25,19 +25,7 @@
 
 
 ## Description 
-The popular Tic-tac-toe game, implemented with vanilla JavaScript.
-
-
-
-## Screenshot
-<img src="./tic-tac-toe-screenshot.png">
-
-
-
-## Related Projects
-[Minesweeper Emoji](https://github.com/michaelkolesidis/minesweeper-emoji)
-
-
+The popular Tic-tac-toe game, implemented with JavaScript, JQuery and Bootstrap
 
 ## License
 
