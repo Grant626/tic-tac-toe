@@ -5,8 +5,8 @@ body {
 }
 
 body {
-    color: rgb(65, 65, 65);
-    background-color: rgb(255, 255, 255);
+    color: rgb(150, 148, 148);
+    background-color: rgb(48, 63, 46);
     font-family: Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ body {
 .cell {
     width: 6rem;
     height: 6rem;
-    border: 6px solid rgb(65, 65, 65);
+    border: 6px solid rgb(43, 42, 42);
     margin: -6px 0 0 -6px;
     text-align: center;
     vertical-align: middle;
@@ -38,6 +38,12 @@ body {
     font-size: 6rem;
     cursor: pointer;
     
+}
+.xTile{
+    color: red;
+}
+.oTile{
+    color:blue;
 }
 
 a {
@@ -49,11 +55,21 @@ a:visited {
     color: black;
 }
 
+.wonTile{
+    background-color: rgb(50, 200, 50);
+}
+
+.score{
+    color: rgb(170, 100, 200);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
 /*************************************/
 /******        Game Status       *****/
 /*************************************/
 .status {
-    color: rgb(65, 65, 65);
+    color: rgb(162, 82, 187);
     /* color: orangered; */
     font-size: 1.2rem;
     font-weight: 600;

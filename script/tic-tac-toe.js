@@ -8,10 +8,22 @@ let xWins = 0;
 let oWins = 0;
 let ties = 0;
 
-const winningMessage = () => `Player ${currentPlayer} has won!`;
+function winningMessage(){
+    if(currentPlayer === "X"){
+        return `You beat an AI, congrats!`;    
+    }else{
+        return `You let a bot beat you...`;
+    }
+} 
 const drawMessage = () => `Game ended in a draw!`;
-const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
-const scoreboard = () => `X wins: ${xWins} | O wins: ${oWins} | Ties: ${ties}`;
+function currentPlayerTurn(){
+    if(currentPlayer === "X"){
+        return `It's your turn!`;    
+    }else{
+        return `The computer is playing!`;
+    }
+}
+const scoreboard = () => `Player wins: ${xWins} | Computer wins: ${oWins} | Ties: ${ties}`;
 
 statusDisplay.innerHTML = currentPlayerTurn();
 scoreDisplay.innerHTML = scoreboard();
@@ -34,9 +46,11 @@ if(currentPlayer === "O"){
 function handleCellPlayed(clickedCellIndex, clickedCell) {
     gameState[clickedCellIndex] = currentPlayer;
     if(currentPlayer === "X"){
-        clickedCell.innerHTML = currentPlayer;    
+        clickedCell.innerHTML = currentPlayer;
+        clickedCell.classList.add("xTile");  
     }else{
         $(`.cell[data-cell-index="${clickedCellIndex}"]`).html(currentPlayer);
+        $(`.cell[data-cell-index="${clickedCellIndex}"]`).addClass("oTile");
     }
     
 }
@@ -52,7 +66,7 @@ function handlePlayerChange() {
 function handleResultValidation() {
     let roundWon = false;
     for (let i = 0; i <= 7; i++) {
-        const winCondition = winningConditions[i];
+        winCondition = winningConditions[i];
         let a = gameState[winCondition[0]];
         let b = gameState[winCondition[1]];
         let c = gameState[winCondition[2]];
@@ -68,13 +82,18 @@ function handleResultValidation() {
     if (roundWon) {
         if(currentPlayer === "X"){
             xWins++;
+            statusDisplay.style.color = "rgb(50,200,50)";
         }else{
             oWins++;
+            statusDisplay.style.color = "rgb(251,100,204)";
+        }
+        for(let i = 0; i <= 2; i++){
+            $(`.cell[data-cell-index="${winCondition[i]}"]`).addClass("wonTile");  
+            console.log(winCondition[i]);
         }
         statusDisplay.innerHTML = winningMessage();
         scoreDisplay.innerHTML = scoreboard();
         gameActive = false;
-        statusDisplay.style.color = "rgb(251,100,204)";
         return;
     }
 
@@ -101,7 +120,6 @@ function handleCellClick(clickedCellEvent = 0) {
         handleCellPlayed(clickedCellIndex, clickedCell);
     }else{
         clickedCellIndex = handleAIMove();
-        console.log("cci is: "+clickedCellIndex);
         if (gameState[clickedCellIndex] !== "" || !gameActive) {
             return;
         }
@@ -114,9 +132,12 @@ function handleCellClick(clickedCellEvent = 0) {
 function handleRestartGame() {
     gameActive = true;
     gameState = ["", "", "", "", "", "", "", "", ""];
-    statusDisplay.style.color = "rgb(65, 65, 65)";
+    statusDisplay.style.color = "rgb(170, 100, 200)";
     statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+    document.querySelectorAll('.cell').forEach(cell => cell.classList.remove("wonTile"));
+    document.querySelectorAll('.cell').forEach(cell => cell.classList.remove("xTile"));
+    document.querySelectorAll('.cell').forEach(cell => cell.classList.remove("oTile"));
     currentPlayer = handleStartingMove();
     if(currentPlayer === "O"){
         handleCellClick();
@@ -124,7 +145,7 @@ function handleRestartGame() {
 }
 
 function handleAIMove () {
-    const time = setTimeout(console.log("AI Moving..."), 2000);
+    //const time = setTimeout(console.log("AI Moving..."), 2000);
     do{
         var move = Math.floor(Math.random() * 9);
     }while(gameState[move] !== "");
