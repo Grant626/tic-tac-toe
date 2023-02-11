@@ -25,7 +25,7 @@
 
 
 ## Description 
-The popular Tic-tac-toe game, implemented with JavaScript, JQuery and Bootstrap
+The popular Tic-tac-toe game, implemented with JavaScript, JQuery and Bootstrap. In this project, the uesr will play against the computer with the potential to win, lose or tie against it. The score is kept track of over time and there is a status bar indicating the current turn or end game condition. The user can also press the 'New Game' button to reset the board at any point. The computer will randomly select its move when it is its turn.
 
 ## License
 
