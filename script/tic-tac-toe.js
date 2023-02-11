@@ -1,14 +1,20 @@
 const statusDisplay = document.querySelector('.status');
+const scoreDisplay = document.querySelector('.score');
 
 let gameActive = true;
 let currentPlayer = handleStartingMove();
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let xWins = 0;
+let oWins = 0;
+let ties = 0;
 
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => `Game ended in a draw!`;
 const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+const scoreboard = () => `X wins: ${xWins} | O wins: ${oWins} | Ties: ${ties}`;
 
 statusDisplay.innerHTML = currentPlayerTurn();
+scoreDisplay.innerHTML = scoreboard();
 
 const winningConditions = [
     [0, 1, 2],
@@ -20,6 +26,10 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+
+if(currentPlayer === "O"){
+    handleCellClick();
+}
 
 function handleCellPlayed(clickedCellIndex, clickedCell) {
     gameState[clickedCellIndex] = currentPlayer;
@@ -56,7 +66,13 @@ function handleResultValidation() {
     }
 
     if (roundWon) {
+        if(currentPlayer === "X"){
+            xWins++;
+        }else{
+            oWins++;
+        }
         statusDisplay.innerHTML = winningMessage();
+        scoreDisplay.innerHTML = scoreboard();
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return;
@@ -64,7 +80,9 @@ function handleResultValidation() {
 
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
+        ties++;
         statusDisplay.innerHTML = drawMessage();
+        scoreDisplay.innerHTML = scoreboard();
         gameActive = false;
         statusDisplay.style.color = "rgb(251,100,204)";
         return;
@@ -95,14 +113,18 @@ function handleCellClick(clickedCellEvent = 0) {
 
 function handleRestartGame() {
     gameActive = true;
-    currentPlayer = handleStartingMove();
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusDisplay.style.color = "rgb(65, 65, 65)";
     statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+    currentPlayer = handleStartingMove();
+    if(currentPlayer === "O"){
+        handleCellClick();
+    }
 }
 
 function handleAIMove () {
+    const time = setTimeout(console.log("AI Moving..."), 2000);
     do{
         var move = Math.floor(Math.random() * 9);
     }while(gameState[move] !== "");
