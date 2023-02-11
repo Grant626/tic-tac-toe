@@ -27,7 +27,6 @@ function handleCellPlayed(clickedCellIndex, clickedCell) {
         clickedCell.innerHTML = currentPlayer;    
     }else{
         $(`.cell[data-cell-index="${clickedCellIndex}"]`).html(currentPlayer);
-        console.log(currentPlayer+ " played at "+ clickedCellIndex);
     }
     
 }
@@ -36,7 +35,6 @@ function handlePlayerChange() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.innerHTML = currentPlayerTurn();
     if(currentPlayer === "O"){
-        setTimeout(5000);
         handleCellClick();
     }
 }
@@ -75,7 +73,7 @@ function handleResultValidation() {
     handlePlayerChange();
 }
 
-function handleCellClick(clickedCellEvent) {
+function handleCellClick(clickedCellEvent = 0) {
     if(currentPlayer === "X"){
         clickedCell = clickedCellEvent.target;
         clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
@@ -85,6 +83,7 @@ function handleCellClick(clickedCellEvent) {
         handleCellPlayed(clickedCellIndex, clickedCell);
     }else{
         clickedCellIndex = handleAIMove();
+        console.log("cci is: "+clickedCellIndex);
         if (gameState[clickedCellIndex] !== "" || !gameActive) {
             return;
         }
@@ -104,12 +103,10 @@ function handleRestartGame() {
 }
 
 function handleAIMove () {
-    move = Math.floor(Math.random() * 9);
-    if(gameState[move] != ""){
-        handleAIMove();
-    }else{
-        return move;
-    }
+    do{
+        var move = Math.floor(Math.random() * 9);
+    }while(gameState[move] !== "");
+    return move;
 }
 
 function handleStartingMove(){
@@ -123,3 +120,7 @@ function handleStartingMove(){
 
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('.restart').addEventListener('click', handleRestartGame);
+
+if(currentPlayer === "O"){
+
+}
