@@ -1,6 +1,6 @@
 <div align="center">
   
-  <img src="./logo.png" height="150px">
+  ![](hw3gif.mp4)
   <h3>Tic-Tac-Toe</h3>
     
 </div>
