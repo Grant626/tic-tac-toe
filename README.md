@@ -1,6 +1,6 @@
 <div align="center">
-  
-  <img src="./logo.png" height="150px">
+ 
+  https://user-images.githubusercontent.com/61981529/218285324-4a55aa68-db86-424c-9283-9c44d08e4f2b.mp4
   <h3>Tic-Tac-Toe</h3>
     
 </div>
@@ -25,19 +25,7 @@
 
 
 ## Description 
-The popular Tic-tac-toe game, implemented with vanilla JavaScript.
-
-
-
-## Screenshot
-<img src="./tic-tac-toe-screenshot.png">
-
-
-
-## Related Projects
-[Minesweeper Emoji](https://github.com/michaelkolesidis/minesweeper-emoji)
-
-
+The popular Tic-tac-toe game, implemented with JavaScript, JQuery and Bootstrap. In this project, the uesr will play against the computer with the potential to win, lose or tie against it. The score is kept track of over time and there is a status bar indicating the current turn or end game condition. The user can also press the 'New Game' button to reset the board at any point. The computer will randomly select its move when it is its turn.
 
 ## License
 
